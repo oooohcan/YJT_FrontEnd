@@ -32,7 +32,7 @@ const Register: React.FC = () => {
             rules={[
               { required: true, message: '请输入账户' },
               {
-                min: 6,
+                min: 4,
                 max: 10,
                 message: '长度要适中哦',
               },
