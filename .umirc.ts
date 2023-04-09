@@ -20,8 +20,24 @@ export default defineConfig({
       ],
     },
     {
+      path: '/admin',
+      name: '管理页',
+      icon: 'crown',
+      access: 'canAdmin',
+      component: 'Admin',
+      routes: [
+        {
+          path: '/admin/user-manage',
+          name: '二级管理页',
+          icon: 'smile',
+          component: './Admin/UserManage',
+        },
+        { component: './404' },
+      ],
+    },
+    {
       path: '/',
-      redirect: '/user/login',
+      redirect: '/home',
     },
     {
       name: '首页',

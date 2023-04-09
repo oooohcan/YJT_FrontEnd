@@ -26,7 +26,7 @@ declare namespace API {
   /** 当前脱敏用户 */
   type CurrentUser = {
     id: number;
-    userName: string;
+    username: string;
     userAccount: string;
     avatarurl?: string;
     gender: number;

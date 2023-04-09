@@ -3,7 +3,14 @@ import message from 'antd/es/message';
 import { history } from 'umi';
 import { stringify } from 'querystring';
 
-const request = extend({ credentials: 'include' });
+const request = extend({
+  credentials: 'include',
+  // 默认请求是否带上cookie
+  //------------生产环境更换请求地址--------------
+  // prefix: process.env.NODE_ENV === 'production' ? 'http://user-backend.code-nav.cn' : undefined
+  // requestType: 'form',
+  prefix: 'http://localhost:8080',
+});
 /**
  * 所有请求拦截器
  */
@@ -20,7 +27,7 @@ request.interceptors.request.use((url, options): any => {
 /**
  * 所有响应拦截器
  */
-request.interceptors.respone.use(async (response, options): Promise<any> => {
+request.interceptors.response.use(async (response, options): Promise<any> => {
   const res = await response.clone().json();
   if (res.code === 0) {
     return res.data;
@@ -38,3 +45,4 @@ request.interceptors.respone.use(async (response, options): Promise<any> => {
   }
   return res.data;
 });
+export default request;

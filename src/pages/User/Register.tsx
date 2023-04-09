@@ -7,8 +7,40 @@ import {
 } from '@ant-design/pro-components';
 import { history, Link, useModel } from 'umi';
 import { SYSTEM_LOG } from '@/constants/index';
+import { message } from 'antd';
+
+import { register } from '@/services/Api/UserController';
 
 const Register: React.FC = () => {
+  const handleSubmit = async (values: API.RegisterParams) => {
+    console.log(values);
+
+    const { userPassword, checkPassword } = values;
+    if (userPassword !== checkPassword) {
+      message.error('两次输入密码不同');
+      return;
+    }
+    try {
+      //注册
+      const id = await register(values);
+      if (id) {
+        const defaultRegisterSuccessMessage = '注册成功';
+        message.success(defaultRegisterSuccessMessage);
+        //注册成功后跳转到登录页
+        if (!history) return;
+        const { query } = history.location;
+        history.push({
+          pathname: '/user/login',
+          query,
+        });
+        return;
+      }
+    } catch (error: any) {
+      const defaultRegisterFailureMessage = '注册失败，请重试！';
+      message.error(defaultRegisterFailureMessage);
+    }
+  };
+
   return (
     <ProConfigProvider hashed={false}>
       <div style={{ bacgroundColor: 'white' }}>
@@ -21,9 +53,12 @@ const Register: React.FC = () => {
               submitText: '注册',
             },
           }}
+          onFinish={async (values) => {
+            await handleSubmit(values as APi.RegisterParams);
+          }}
         >
           <ProFormText
-            name="username"
+            name="userAccount"
             fieldProps={{
               size: 'large',
               prefix: <UserOutlined className={'predixIcon'} />,
@@ -39,7 +74,7 @@ const Register: React.FC = () => {
             ]}
           ></ProFormText>
           <ProFormText.Password
-            name="password"
+            name="userPassword"
             fieldProps={{
               size: 'large',
               prefix: <LockOutlined className={'prefixIcon'} />,
