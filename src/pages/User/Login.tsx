@@ -19,7 +19,7 @@ const LoginMessage: React.FC<{ content: string }> = ({ content }) => (
 );
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [loginType, setLoginType] = useState<LoginType>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
   const items = [
@@ -32,44 +32,19 @@ const Login: React.FC = () => {
       key: 'phone',
     },
   ];
-
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
-    }
-  };
-
   const handleSubmit = async (values: API.LoginParams) => {
-    try {
-      //登录
-      const user = await login({ ...values, loginType });
-      console.log(user);
-
-      if (user) {
-        const defaultLoginSuccessMessage = '登录成功!';
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
-        // if (!history) return;
-        // const { query } = history.location;
-        // const { redirect } = query as {
-        //   redirect: string;
-        // };
-        // history.push(redirect || '/');
-        await setInitialState(user);
-        console.log(initialState);
-
-        history.push('/admin');
-        return;
-      }
-      setUserLoginState(user);
-      console.log(userLoginState);
-      console.log(3);
-    } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试!';
-      message.error(defaultLoginFailureMessage);
+    //登录
+    setSubmitting(true);
+    const currentUser = await login({ ...values, loginType });
+    if (currentUser) {
+      message.success('登录成功');
+      await setInitialState({ ...initialState, currentUser });
+    } else {
+      message.error('登录失败，请重试');
     }
+    setSubmitting(false);
+    console.log(initialState);
+    history.push('/admin');
   };
 
   return (
@@ -79,6 +54,15 @@ const Login: React.FC = () => {
           logo={<img src={SYSTEM_LOG} alt="logo" />}
           title="一卷通"
           subTitle="大学生面试题组卷刷题平台"
+          submitter={{
+            submitButtonProps: {
+              loading: submitting,
+              size: 'large',
+              style: {
+                width: '100%',
+              },
+            },
+          }}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
@@ -89,7 +73,7 @@ const Login: React.FC = () => {
             onChange={(activeKey) => setLoginType(activeKey as LoginType)}
             items={items}
           ></Tabs>
-          {userLoginState === 'error' && loginType === 'account' && (
+          {submitting === 'error' && loginType === 'account' && (
             <LoginMessage content={'错误的账号和密码'} />
           )}
           {loginType === 'account' && (

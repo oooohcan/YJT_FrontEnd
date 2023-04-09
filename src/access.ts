@@ -1,21 +1,14 @@
-export default function access(
-  initialState: { currentUser?: API.CurrentUser } | undefined,
-) {
-  // 在这里按照初始化数据定义项目中的权限，统一管理
-  // 参考文档 https://umijs.org/docs/max/access
-  const { currentUser } = initialState ?? {};
-  return {
-    canAdmin: currentUser && currentUser.userRole === 1,
-  };
+export interface AccessType {
+  canAdmin: boolean; //是否为管理员
+  canUser: boolean; //是否已登录
+  isBan: boolean; //是否被封号
 }
 
-// export default (initialState: API.UserInfo) => {
-//   // 在这里按照初始化数据定义项目中的权限，统一管理
-//   // 参考文档 https://umijs.org/docs/max/access
-//   const canSeeAdmin = !!(
-//     initialState && initialState.name !== 'dontHaveAccess'
-//   );
-//   return {
-//     canSeeAdmin,
-//   };
-// };
+export default function access(initialState: {
+  currentUser?: API.CurrentUser | undefined;
+}): AccessType {
+  const { currentUser } = initialState || {};
+  return {
+    canAdmin: currentUser?.userRole === 1,
+  };
+}

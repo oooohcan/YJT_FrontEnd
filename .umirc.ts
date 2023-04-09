@@ -24,7 +24,7 @@ export default defineConfig({
       name: '管理页',
       icon: 'crown',
       access: 'canAdmin',
-      component: 'Admin',
+      component: './Admin',
       routes: [
         {
           path: '/admin/user-manage',
