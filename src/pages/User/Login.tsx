@@ -44,7 +44,9 @@ const Login: React.FC = () => {
     }
     setSubmitting(false);
     console.log(initialState);
-    history.push('/admin');
+    setTimeout(() => {
+      history.push('/admin');
+    }, 2000);
   };
 
   return (

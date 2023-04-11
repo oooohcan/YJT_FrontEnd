@@ -1,4 +1,3 @@
-import { PageHeaderWrapper } from '@ant-design/pro-components';
 import { Access, useAccess } from '@umijs/max';
 import React from 'react';
 
@@ -6,9 +5,11 @@ const Admin: React.FC = (props) => {
   const { children } = props;
   const access = useAccess();
   return (
-    <PageHeaderWrapper>
-      <Access accessible={access.canAdmin}>{children}</Access>
-    </PageHeaderWrapper>
+    <div>
+      <Access accessible={access.canAdmin}>
+        admin页面，还要好好写{children}
+      </Access>
+    </div>
   );
 };
 
