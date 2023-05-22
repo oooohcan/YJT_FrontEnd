@@ -52,4 +52,13 @@ declare namespace API {
     errorMessage?: string;
     success?: boolean;
   };
+
+  /** 增加问题 */
+  type ProblemParams = {
+    title?: string;
+    author?: string;
+    content?: string;
+    answer?: string;
+    label?: int;
+  };
 }

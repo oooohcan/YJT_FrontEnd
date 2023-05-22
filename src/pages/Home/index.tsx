@@ -4,6 +4,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel, history } from '@umijs/max';
 import styles from './index.less';
 import { Button } from 'antd';
+import Problem from '@/components/Problem';
 
 const HomePage: React.FC = () => {
   const { name } = useModel('global');
@@ -19,6 +20,8 @@ const HomePage: React.FC = () => {
       >
         点我登录
       </Button>
+      <hr />
+      <Problem></Problem>
     </PageContainer>
   );
 };
