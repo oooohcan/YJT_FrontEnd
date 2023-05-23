@@ -15,6 +15,7 @@
     "@ant-design/pro-components": "^2.0.1",
     "@umijs/max": "^4.0.63",
     "antd": "^5.0.0",
+    "nanoid": "^4.0.2",
     "umi-request": "^1.4.0"
   },
   "devDependencies": {

@@ -5,6 +5,7 @@ import { useModel, history } from '@umijs/max';
 import styles from './index.less';
 import { Button } from 'antd';
 import Problem from '@/components/Problem';
+import ProblemList from '../ProblemList';
 
 const HomePage: React.FC = () => {
   const { name } = useModel('global');
@@ -21,7 +22,7 @@ const HomePage: React.FC = () => {
         点我登录
       </Button>
       <hr />
-      <Problem></Problem>
+      <ProblemList />
     </PageContainer>
   );
 };
