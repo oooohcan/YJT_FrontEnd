@@ -16,6 +16,9 @@ const Guide: React.FC<Props> = (props) => {
           欢迎使用 <strong>{name}</strong> ！
         </Typography.Title>
       </Row>
+      <p style={{ textAlign: 'center' }}>
+        这是一个为<b>大学生</b>提供IT相关<b>面试题</b>组卷和刷题功能的平台
+      </p>
     </Layout>
   );
 };

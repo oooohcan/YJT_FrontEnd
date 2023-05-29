@@ -8,11 +8,8 @@ export async function getInitialState(): Promise<{ name: string }> {
 
 export const layout = () => {
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
-    defaultCollapsed: true,
-    breakpoint: false,
-    menu: {
-      locale: false,
-    },
+    layout: 'top',
+    logo: './logo.png',
+    logout: true,
   };
 };
