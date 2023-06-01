@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getProblem } from '@/services/Api/ProblemController';
 import Problem from '@/pages/Home/Problem';
 import styles from './index.less';
 

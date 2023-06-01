@@ -23,6 +23,17 @@ declare namespace API {
     currentAuthority?: string;
   };
 
+  // 题目相关
+  type GetProblem = {
+    id?: number;
+    title?: string;
+  };
+
+  type pageProblem = {
+    current?: number;
+    pageSize?: number;
+  };
+
   /** 当前脱敏用户 */
   type CurrentUser = {
     id: number;

@@ -12,13 +12,9 @@ import { history } from '@umijs/max';
 import React, { useRef, useState } from 'react';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
-import { getProblem } from '@/services/Api/ProblemController';
+import { getProblem, pageProblem } from '@/services/Api/ProblemController';
 
 const TableList: React.FC<unknown> = () => {
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] =
-    useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<API.ProblemParams>();
   const [selectedRowsState, setSelectedRows] = useState<API.ProblemParams[]>(
@@ -29,6 +25,8 @@ const TableList: React.FC<unknown> = () => {
       title: '编号',
       dataIndex: 'id',
       tip: '编号是唯一的 key',
+      width: '20%',
+      valueType: 'digit',
       formItemProps: {
         rules: [
           {
@@ -46,7 +44,10 @@ const TableList: React.FC<unknown> = () => {
     {
       title: '类型',
       dataIndex: 'label',
-      hideInForm: true,
+      hideInSearch: true,
+      filters: true,
+      onFilter: true,
+      width: '20%',
       valueEnum: {
         0: { text: '算法', status: '算法' },
         1: { text: '后端', status: '后端' },
@@ -63,6 +64,7 @@ const TableList: React.FC<unknown> = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      width: '20%',
       render: (value, record, index) => (
         <>
           <a
@@ -87,14 +89,10 @@ const TableList: React.FC<unknown> = () => {
         headerTitle="题目列表"
         actionRef={actionRef}
         rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
-        request={async (params, sorter, filter) => {
+        search={false}
+        request={async (params) => {
           const data = await getProblem({
             ...params,
-            sorter,
-            filter,
           });
           return {
             data,
@@ -105,6 +103,7 @@ const TableList: React.FC<unknown> = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
+        pagination={{ defaultPageSize: 5 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
@@ -118,7 +117,7 @@ const TableList: React.FC<unknown> = () => {
         >
           <Button
             onClick={async () => {
-              actionRef.current?.reloadAndRest?.();
+              actionRef.current?.clearSelected?.();
             }}
           >
             取消
