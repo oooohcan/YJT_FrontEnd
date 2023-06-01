@@ -27,13 +27,13 @@ const Detail: React.FC = (props) => {
     <div className={styles.container}>
       <div className={styles.information}>
         <div>
-          作者：<Tag color="cyan">{problem.author}</Tag>
+          作者：<Tag color="cyan">{problem?.author}</Tag>
         </div>
         <div>
           编号：<Tag color="magenta">{id}</Tag>
         </div>
         <div>
-          标签：<Tag color="blue">{TAGS[problem.label]}</Tag>
+          标签：<Tag color="blue">{TAGS[problem?.label]}</Tag>
         </div>
         <div
           style={{
@@ -41,14 +41,14 @@ const Detail: React.FC = (props) => {
             color: 'rgb(150, 150, 150)',
           }}
         >
-          {problem.createTime.slice(0, 10) +
+          {problem?.createTime.slice(0, 10) +
             ' ' +
-            problem.createTime.slice(11, 19)}
+            problem?.createTime.slice(11, 19)}
         </div>
       </div>
       <hr />
-      <div className={styles.title}>{problem.title}</div>
-      <div className={styles.content}>{problem.content}</div>
+      <div className={styles.title}>{problem?.title}</div>
+      <div className={styles.content}>{problem?.content}</div>
       <div className={styles.answer}>
         <Button
           onClick={() => {
@@ -57,7 +57,7 @@ const Detail: React.FC = (props) => {
         >
           {show ? '查看' : '隐藏'}答案
         </Button>
-        <div style={textDisplay}>{problem.answer}</div>
+        <div style={textDisplay}>{problem?.answer}</div>
       </div>
     </div>
   );

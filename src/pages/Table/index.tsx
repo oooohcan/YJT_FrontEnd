@@ -8,11 +8,12 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { Button, Divider, Drawer, message } from 'antd';
-import { history } from '@umijs/max';
+import { history, useModel } from '@umijs/max';
 import React, { useRef, useState } from 'react';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { getProblem, pageProblem } from '@/services/Api/ProblemController';
+import useSelect from '@/models/selectModel';
 
 const TableList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
@@ -20,6 +21,10 @@ const TableList: React.FC<unknown> = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.ProblemParams[]>(
     [],
   );
+  const { problems, loading } = useModel('problemModel');
+
+  let ids = selectedRowsState.slice().map((v) => v.id);
+
   const columns: ProDescriptionsItemProps<API.ProblemParams>[] = [
     {
       title: '编号',
@@ -95,7 +100,7 @@ const TableList: React.FC<unknown> = () => {
             ...params,
           });
           return {
-            data,
+            data: problems,
             success: true,
           };
         }}
@@ -122,7 +127,17 @@ const TableList: React.FC<unknown> = () => {
           >
             取消
           </Button>
-          <Button type="primary">组卷</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              history.push({
+                pathname: '/paper',
+                search: `ids=${ids}`,
+              });
+            }}
+          >
+            组卷
+          </Button>
         </FooterToolbar>
       )}
     </PageContainer>

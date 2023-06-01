@@ -55,6 +55,10 @@ export default defineConfig({
       path: '/detail',
       component: './Detail',
     },
+    {
+      path: '/paper',
+      component: './Paper',
+    },
   ],
   npmClient: 'pnpm',
 });
