@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.less';
-import { Button, Tag } from 'antd';
+import { Button, Tag, FloatButton } from 'antd';
 import { useSearchParams, useModel } from '@umijs/max';
 import { TAGS } from '@/constants';
 import { getProblem, pageProblem } from '@/services/Api/ProblemController';
+import GPT from '@/components/GPT';
 
 const Detail: React.FC = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,6 +26,7 @@ const Detail: React.FC = (props) => {
 
   return (
     <div className={styles.container}>
+      <GPT />
       <div className={styles.information}>
         <div>
           作者：<Tag color="cyan">{problem?.author}</Tag>
