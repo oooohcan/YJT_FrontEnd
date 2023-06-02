@@ -38,14 +38,14 @@ const Login: React.FC = () => {
     const currentUser = await login({ ...values, loginType });
     if (currentUser) {
       message.success('登录成功');
+      setTimeout(() => {
+        history.push('/home');
+      }, 1000);
       await setInitialState({ ...initialState, currentUser });
     } else {
       message.error('登录失败，请重试');
     }
     setSubmitting(false);
-    setTimeout(() => {
-      history.push('/home');
-    }, 1000);
     // console.log(initialState);
   };
 

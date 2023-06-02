@@ -1,13 +1,14 @@
 import React from 'react';
-import { Avatar, Menu, Dropdown } from 'antd';
+import { Avatar, Menu, Dropdown, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { useModel, history } from '@umijs/max';
+import { useModel, history, useAccess } from '@umijs/max';
 import { nanoid } from 'nanoid';
 import { outLogin } from '@/services/Api/UserController';
 
 const RightContent: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
+  const access = useAccess();
   const items = [
     {
       key: nanoid(),
@@ -23,7 +24,16 @@ const RightContent: React.FC = () => {
     },
     {
       key: nanoid(),
-      label: <a>后台</a>,
+      label: (
+        <a
+          onClick={() => {
+            if (access.canAdmin) history.push('/admin/user-manage');
+            else message.info('您不是管理员哦~');
+          }}
+        >
+          后台
+        </a>
+      ),
     },
     {
       key: nanoid(),
