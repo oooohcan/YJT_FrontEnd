@@ -74,7 +74,7 @@ const TableList: React.FC<unknown> = () => {
         <>
           <a
             onClick={() => {
-              history.push({ pathname: '/detail', search: `id=${index}` });
+              history.push({ pathname: '/detail', search: `id=${index + 1}` });
             }}
           >
             详情
