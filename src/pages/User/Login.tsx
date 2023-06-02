@@ -5,7 +5,7 @@ import {
   ProFormText,
   ProConfigProvider,
 } from '@ant-design/pro-components';
-import { Alert, message, Tabs } from 'antd';
+import { Alert, message, Tabs, Popover } from 'antd';
 import { history, Link, useModel } from 'umi';
 import { useState } from 'react';
 import { SYSTEM_LOG } from '@/constants';
@@ -43,10 +43,10 @@ const Login: React.FC = () => {
       message.error('登录失败，请重试');
     }
     setSubmitting(false);
-    console.log(initialState);
     setTimeout(() => {
-      history.push('/admin');
-    }, 2000);
+      history.push('/home');
+    }, 1000);
+    // console.log(initialState);
   };
 
   return (
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'账户: admin'}
+                placeholder={'账户'}
                 rules={[
                   {
                     required: true,
@@ -100,7 +100,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'密码: 12345678'}
+                placeholder={'密码'}
                 rules={[
                   {
                     required: true,
@@ -166,7 +166,9 @@ const Login: React.FC = () => {
             }}
           >
             <Link to={'/user/register'}>创建账户</Link>
-            <a className="textcolor">忘记密码</a>
+            <Popover content="请联系管理员哦~">
+              <a className="textcolor">忘记密码</a>
+            </Popover>
           </div>
         </LoginForm>
       </div>

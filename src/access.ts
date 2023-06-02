@@ -10,5 +10,7 @@ export default function access(initialState: {
   const { currentUser } = initialState || {};
   return {
     canAdmin: currentUser?.userRole === 1,
+    canUser: currentUser,
+    isBan: false,
   };
 }

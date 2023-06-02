@@ -7,7 +7,7 @@ import {
 } from '@ant-design/pro-components';
 import { history, Link, useModel } from 'umi';
 import { SYSTEM_LOG } from '@/constants/index';
-import { message } from 'antd';
+import { message, Popover } from 'antd';
 
 import { register } from '@/services/Api/UserController';
 
@@ -133,7 +133,9 @@ const Register: React.FC = () => {
             }}
           >
             <Link to={'/user/login'}>已有账户</Link>
-            <a>邀请码</a>
+            <Popover content="请联系管理员哦~">
+              <a>邀请码</a>
+            </Popover>
           </div>
         </LoginForm>
       </div>

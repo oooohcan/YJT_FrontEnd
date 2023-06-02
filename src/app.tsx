@@ -5,8 +5,8 @@
 
 import RightContent from './components/RightContent';
 
-export async function getInitialState(): Promise<{ name: string }> {
-  return { name: 'zxy' };
+export async function getInitialState() {
+  return { init: 'success' };
 }
 
 export const layout = () => {

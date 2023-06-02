@@ -4,8 +4,10 @@ import { UserOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { useModel, history } from '@umijs/max';
 import { nanoid } from 'nanoid';
+import { outLogin } from '@/services/Api/UserController';
 
 const RightContent: React.FC = () => {
+  const { initialState, setInitialState } = useModel('@@initialState');
   const items = [
     {
       key: nanoid(),
@@ -25,7 +27,17 @@ const RightContent: React.FC = () => {
     },
     {
       key: nanoid(),
-      label: <a>退出</a>,
+      label: (
+        <a
+          onClick={async () => {
+            await outLogin();
+            history.push('/user/login');
+            setInitialState({ currentUser: null });
+          }}
+        >
+          退出
+        </a>
+      ),
     },
   ];
   return (
@@ -38,8 +50,11 @@ const RightContent: React.FC = () => {
               className={styles.avatar}
               icon={<UserOutlined />}
               alt="avatar"
+              src={initialState.currentUser?.avatarUrl}
             />
-            <span className={[styles.name, styles.anticon]}>名字</span>
+            <span className={[styles.name, styles.anticon]}>
+              {initialState.currentUser?.username}
+            </span>
           </span>
         </Dropdown>
       </span>

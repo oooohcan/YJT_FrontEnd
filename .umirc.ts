@@ -9,7 +9,12 @@ export default defineConfig({
   layout: {
     title: '一卷通',
   },
+  npmClient: 'pnpm',
   routes: [
+    {
+      path: '/',
+      redirect: '/user/login',
+    },
     {
       path: '/user',
       layout: false,
@@ -20,45 +25,43 @@ export default defineConfig({
       ],
     },
     {
+      name: '刷题',
+      icon: 'smile',
+      path: '/home',
+      component: './Home',
+      access: 'canUser',
+    },
+    {
+      name: '组卷',
+      icon: 'crown',
+      path: '/table',
+      component: './Table',
+      access: 'canUser',
+    },
+    {
+      path: '/detail',
+      component: './Detail',
+      access: 'canUser',
+    },
+    {
+      path: '/paper',
+      component: './Paper',
+      access: 'canUser',
+    },
+    {
       path: '/admin',
       name: '管理页',
       icon: 'crown',
       access: 'canAdmin',
-      component: './Admin',
       routes: [
         {
+          name: '用户管理页',
           path: '/admin/user-manage',
-          name: '二级管理页',
-          icon: 'smile',
           component: './Admin/UserManage',
         },
         { component: './404' },
       ],
     },
-    {
-      path: '/',
-      redirect: '/home',
-    },
-    {
-      name: '刷题',
-      path: '/home',
-      icon: 'smile',
-      component: './Home',
-    },
-    {
-      name: '组卷',
-      path: '/table',
-      icon: 'crown',
-      component: './Table',
-    },
-    {
-      path: '/detail',
-      component: './Detail',
-    },
-    {
-      path: '/paper',
-      component: './Paper',
-    },
+    { component: './404' },
   ],
-  npmClient: 'pnpm',
 });
