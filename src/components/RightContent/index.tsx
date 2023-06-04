@@ -27,7 +27,7 @@ const RightContent: React.FC = () => {
       label: (
         <a
           onClick={() => {
-            if (access.canAdmin) history.push('/admin/user-manage');
+            if (access.canAdmin) history.push('http://43.142.142.39:65072/login');
             else message.info('您不是管理员哦~');
           }}
         >

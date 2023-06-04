@@ -4,12 +4,12 @@ import { history } from 'umi';
 import { stringify } from 'querystring';
 
 const request = extend({
-  credentials: 'include',
+  // credentials: 'include',
   // 默认请求是否带上cookie
   //------------生产环境更换请求地址--------------
   // prefix: process.env.NODE_ENV === 'production' ? 'http://user-backend.code-nav.cn' : undefined
   // requestType: 'form',
-  prefix: 'http://localhost:8080',
+  prefix: 'http://43.142.142.39:18080',
 });
 /**
  * 所有请求拦截器

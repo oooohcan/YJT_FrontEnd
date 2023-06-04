@@ -15,7 +15,7 @@ const GPT: React.FC = () => {
       content={
         <iframe
           className={styles.iframeWindow}
-          src="http://43.142.142.39:65069/#/chat_web"
+          src="http://43.142.142.39:65071/#/chat_web"
         />
       }
       trigger="click"
