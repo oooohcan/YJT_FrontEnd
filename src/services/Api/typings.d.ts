@@ -72,4 +72,12 @@ declare namespace API {
     answer?: string;
     label?: int;
   };
+  /** 增加试卷 */
+  type AddProblemParams = {
+    name?: string;
+    description?: string;
+    questions?: Array;
+    userId?: int;
+    isPublic?: int;
+  };
 }

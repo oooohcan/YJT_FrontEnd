@@ -14,6 +14,7 @@ import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { getProblem, pageProblem } from '@/services/Api/ProblemController';
 import useSelect from '@/models/selectModel';
+import { addPaper } from '@/services/Api/PaperController';
 
 const TableList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
@@ -21,9 +22,26 @@ const TableList: React.FC<unknown> = () => {
   const [selectedRowsState, setSelectedRows] = useState<API.ProblemParams[]>(
     [],
   );
+  const { initialState, setInitialState } = useModel('@@initialState');
   const { problems, loading } = useModel('problemModel');
-
   let ids = selectedRowsState.slice().map((v) => v.id);
+  let currentUser = initialState?.currentUser;
+
+  const handleAddPaper = async () => {
+    let data = {
+      name: currentUser.username + '新增的试卷',
+      description: currentUser.username + '新增的描述',
+      questions: ids,
+      userId: currentUser.id,
+      isPublic: 0,
+    };
+    const result = await addPaper(data);
+    history.push({
+      pathname: '/paper',
+      search: `ids=${ids}`,
+    });
+    // console.log(result);
+  };
 
   const columns: ProDescriptionsItemProps<API.ProblemParams>[] = [
     {
@@ -130,10 +148,7 @@ const TableList: React.FC<unknown> = () => {
           <Button
             type="primary"
             onClick={() => {
-              history.push({
-                pathname: '/paper',
-                search: `ids=${ids}`,
-              });
+              handleAddPaper();
             }}
           >
             组卷
