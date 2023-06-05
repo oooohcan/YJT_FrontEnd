@@ -10,7 +10,9 @@ const Detail: React.FC = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { problems, loading } = useModel('problemModel');
   const id = searchParams.get('id');
-  const problem = problems[id - 1];
+  const problem = problems.find((i) => {
+    return i.id == id;
+  });
   const [show, setShow] = useState(true);
   let textDisplay = {
     color: show ? null : 'black',
